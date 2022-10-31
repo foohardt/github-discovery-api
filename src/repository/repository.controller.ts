@@ -9,7 +9,7 @@ async function getRepositories(
 ): Promise<void> {
   try {
     const repositories = await repositoryService.fetchRepositories(
-      '2022-01-12',
+      '2020-01-12',
       3,
     );
     res.json(repositories);
