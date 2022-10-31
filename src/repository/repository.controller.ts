@@ -8,7 +8,10 @@ async function getRepositories(
   next: NextFunction
 ): Promise<void> {
   try {
-    const repositories = await repositoryService.fetchRepositories();
+    const repositories = await repositoryService.fetchRepositories(
+      '2022-01-12',
+      3,
+    );
     res.json(repositories);
   } catch (error) {
     next(error);
