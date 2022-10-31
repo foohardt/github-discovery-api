@@ -32,10 +32,10 @@ async function fetchRepositories(
   limit: Number = 30,
   language: String = ''
 ): Promise<Array<{}>> {
-  const query = queryBuilder(created, limit, language);
-  let url = `${process.env.GITHUB_SEARCH_API}/repositories?${query}`;
-  console.log(url);
   try {
+    const query = queryBuilder(created, limit, language);
+    let url = `${process.env.GITHUB_SEARCH_API}/repositories?${query}`;
+
     const response = await axios.get(url);
     return response.data.items;
   } catch (error) {
