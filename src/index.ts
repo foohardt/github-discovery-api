@@ -2,7 +2,7 @@ import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan'
 
-import repositoryRouter from './repository/repository.router';
+import repositoryRouter from './routes/repository.router';
 
 dotenv.config();
 

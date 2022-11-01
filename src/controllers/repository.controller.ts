@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-import * as repositoryService from './repository.service';
+import * as repositoryService from '../services/repository.search.service';
 
 async function getRepositories(
   req: Request,
