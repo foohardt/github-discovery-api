@@ -1,17 +1,28 @@
 import { Request, Response, NextFunction } from 'express';
-
+import { param, validationResult } from 'express-validator';
 import * as repositoryService from '../services/repository.search.service';
 
 async function getRepositories(
   req: Request,
   res: Response,
   next: NextFunction
-): Promise<void> {
+) {
   try {
+    const created = req.query.created?.toString();
+    const limit = Number(req.query.limit);
+    const language = req.query.language?.toString();
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     const repositories = await repositoryService.fetchRepositories(
-      '2020-01-12',
-      3,
+      created,
+      limit,
+      language
     );
+
     res.json(repositories);
   } catch (error) {
     next(error);
