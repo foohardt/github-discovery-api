@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { param, validationResult } from 'express-validator';
+import { validationResult } from 'express-validator';
 import * as repositoryService from '../services/repository.search.service';
 
 async function getRepositories(
