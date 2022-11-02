@@ -11,7 +11,13 @@ describe('Repository Controller', () => {
   let req: any, res: any, next: any;
 
   beforeEach(() => {
-    req = { params: {} } as Request;
+    req = {
+      query: {
+        created: '2019-01-01',
+        limit: '1',
+        language: 'assembly'
+      }
+    } as unknown as Request;
     res = { json: function () {} } as Response;
     next = sinon.spy() as NextFunction;
   });
