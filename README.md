@@ -2,7 +2,7 @@
 
 GitHub Discovery API uses the public GitHub search endpoint to discover content on GitHub.
 
-## Topics
+## Endpoints
 ### Repositories
 GitHub Discovery API provides and endpoint `/repositories`, which can be used to discover popular repositories on GitHub. The term popularity refers to the set of star gazers a repository has. Repositories are beeing fetched in descending order, meaning more popular items beeing fetched first. For a detailed documentation of the usage of the repositories endpoint please see the Open API documentation of this project. 
 
