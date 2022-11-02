@@ -26,6 +26,8 @@ GITHUB_SEARCH_API=https://api.github.com/search
 --- | --- |
 |`npm run dev`|Start service in development mode|
 |`npm run test`|Run unit tests|
+|`npm run build`|Build application. Assets will be stored in /dist/|
+|`npm start`|Run Build|
 
 ## Open API Documentation
 
