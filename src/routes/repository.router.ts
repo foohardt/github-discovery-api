@@ -48,8 +48,8 @@ const isNotNegative: CustomValidator = (value) => {
 repositoryRouter.get(
   '/',
   [
-    query('created').optional().isDate(),
-    query('limit').optional().custom(isNotNegative)
+    query('created').optional().isDate().trim().escape(),
+    query('limit').optional().custom(isNotNegative).trim().escape()
   ],
 
   repositoryController.getRepositories
