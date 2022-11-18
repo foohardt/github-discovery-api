@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator';
 import * as repositoryService from '../services/repository.search.service';
+import { RepositoryItem } from '../services/repository.search.service';
 
 async function getRepositories(
   req: Request,
@@ -16,12 +17,9 @@ async function getRepositories(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    
-    const repositories = await repositoryService.fetchRepositories(
-      created,
-      limit,
-      language
-    );
+
+    const repositories: RepositoryItem[] =
+      await repositoryService.fetchRepositories(created, limit, language);
 
     res.json(repositories);
   } catch (error) {

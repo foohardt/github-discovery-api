@@ -1,4 +1,14 @@
 import axios from 'axios';
+import { RespositorySearchItem } from '../api/interfaces/repository.search.item';
+
+interface RepositoryItem {
+  id: string;
+  name: string;
+  fullName: string;
+  starGazersCount: number;
+  watchersCount: number;
+  language: string;
+}
 
 /**
  * Function to create query for search API
@@ -10,9 +20,9 @@ import axios from 'axios';
  */
 function buildQuery(created: String, limit: Number, language: String): String {
   const l = language.length > 0 ? `+language:${language}` : '';
-  const q = `q=created:>${created}${l}&sort=stars&order=desc&per_page=${limit}`;
+  const query = `q=created:>${created}${l}&sort=stars&order=desc&per_page=${limit}`;
 
-  return q;
+  return query;
 }
 
 /**
@@ -27,17 +37,29 @@ async function fetchRepositories(
   created: String = '2019-01-01',
   limit: Number = 30,
   language: String = ''
-) {
+): Promise<RepositoryItem[]> {
   try {
     const query = buildQuery(created, limit, language);
-    let url = `${process.env.GITHUB_SEARCH_API}/repositories?${query}`;
+    const url = `${process.env.GITHUB_SEARCH_API}/repositories?${query}`;
 
     const response = await axios.get(url);
+    console.log(response);
 
-    return response.data.items;
+    const items = response.data.items;
+
+    const respositories = items.map((x: RespositorySearchItem) => ({
+      id: x.id,
+      name: x.name,
+      fullName: x.fullName,
+      starGazersCount: x.stargazersCount,
+      watchersCount: x.watchersCount,
+      language: x.language
+    }));
+
+    return respositories;
   } catch (error) {
     throw new Error(`Error fetching repositories: ${error}`);
   }
 }
 
-export { fetchRepositories };
+export { fetchRepositories, RepositoryItem };
