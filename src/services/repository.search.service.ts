@@ -43,7 +43,6 @@ async function fetchRepositories(
     const url = `${process.env.GITHUB_SEARCH_API}/repositories?${query}`;
 
     const response = await axios.get(url);
-    console.log(response);
 
     const items = response.data.items;
 
