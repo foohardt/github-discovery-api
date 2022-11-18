@@ -6,6 +6,7 @@ chai.use(sinonChai);
 
 import * as repositoryController from './repository.controller';
 import * as repositorySearchService from '../services/repository.search.service';
+import { RepositoryItem } from '../services/repository.search.service';
 
 describe('Repository Controller', () => {
   let req: any, res: any, next: any;
@@ -27,7 +28,7 @@ describe('Repository Controller', () => {
   });
 
   it('should return repositories', async () => {
-    const stubValue = [{}];
+    const stubValue = [{}] as unknown as RepositoryItem[];
 
     const mock = sinon.mock(res);
     mock.expects('json').once().withArgs([{}]);
