@@ -34,7 +34,7 @@ describe('Repository Controller', () => {
     mock.expects('json').once().withArgs([{}]);
 
     const stub = sinon
-      .stub(repositorySearchService, 'fetchRepositories')
+      .stub(repositorySearchService, 'getRepositories')
       .resolves(stubValue);
 
     await repositoryController.getRepositories(req, res, next);

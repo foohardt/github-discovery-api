@@ -13,7 +13,7 @@ describe('Repository Search Service', () => {
 
   it('should throw an error', async () => {
     try {
-      await repositorySearchService.fetchRepositories();
+      await repositorySearchService.getRepositories();
     } catch (error) {
       expect(error).to.be.instanceOf(Error);
     }
@@ -26,7 +26,7 @@ describe('Repository Search Service', () => {
 
     const stub = sinon.stub(axios, 'get').resolves({ data: [] });
 
-    await repositorySearchService.fetchRepositories(created, limit, language);
+    await repositorySearchService.getRepositories(created, limit, language);
 
     expect(
       stub.calledWith(
@@ -39,7 +39,7 @@ describe('Repository Search Service', () => {
     const stubValue = { data: { items: ['1'] } };
     const stub = sinon.stub(axios, 'get').resolves(stubValue);
 
-    const repositories = await repositorySearchService.fetchRepositories();
+    const repositories = await repositorySearchService.getRepositories();
 
     expect(stub.calledOnce).to.be.true;
     expect(repositories[0]).is.equal(stubValue.data.items[0]);

@@ -19,7 +19,7 @@ async function getRepositories(
     }
 
     const repositories: RepositoryItem[] =
-      await repositoryService.fetchRepositories(created, limit, language);
+      await repositoryService.getRepositories(created, limit, language);
 
     res.json(repositories);
   } catch (error) {
