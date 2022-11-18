@@ -20,11 +20,10 @@ interface RepositoryItem {
  */
 async function getRepositories(
   created: string = '2019-01-01',
-  limit: number = 30,
+  limit: string = '30',
   language: string = ''
 ): Promise<RepositoryItem[]> {
   try {
-
     const items = await fetchRepositories(created, limit, language);
 
     const repositories = items.map((x: RespositorySearchItem) => ({
@@ -38,7 +37,7 @@ async function getRepositories(
 
     return repositories;
   } catch (error) {
-    throw new Error(`Error fetching repositories: ${error}`);
+    throw new Error(`Error getting repositories: ${error}`);
   }
 }
 

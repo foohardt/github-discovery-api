@@ -10,7 +10,7 @@ async function getRepositories(
 ) {
   try {
     const created = req.query.created?.toString();
-    const limit = Number(req.query.limit);
+    const limit = req.query.limit?.toString();
     const language = req.query.language?.toString();
 
     const errors = validationResult(req);

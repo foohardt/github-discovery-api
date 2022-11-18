@@ -24,7 +24,7 @@ function getRequestConfig(): AxiosRequestConfig {
  */
 function getRepositorySearchUrl(
   created: string,
-  limit: number,
+  limit: string,
   language: string
 ): string {
   const lang = language.length > 0 ? `+language:${language}` : '';
@@ -43,14 +43,19 @@ function getRepositorySearchUrl(
  */
 export async function fetchRepositories(
   created: string = '2019-01-01',
-  limit: number = 30,
+  limit: string = '30',
   language: string = ''
 ): Promise<RespositorySearchItem[]> {
-  const url = getRepositorySearchUrl(created, limit, language);
+  try {
+    const url = getRepositorySearchUrl(created, limit, language);
 
-  const response = await axios.get(url, getRequestConfig());
+    const response = await axios.get(url, getRequestConfig());
 
-  const items = response.data.items;
+    const items = response.data.items;
 
-  return items;
+    return items;
+  } catch (error) {
+    console.error(error);
+    throw new Error();
+  }
 }
