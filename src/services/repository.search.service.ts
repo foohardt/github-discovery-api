@@ -1,7 +1,8 @@
 import { fetchRepositories } from '../api/api.service';
+import { RespositorySearchItem } from '../api/interfaces/repository.search.item';
 
 interface RepositoryItem {
-  id: string;
+  id: number;
   name: string;
   fullName: string;
   starGazersCount: number;
@@ -24,7 +25,17 @@ async function getRepositories(
 ): Promise<RepositoryItem[]> {
   try {
 
-    const repositories = fetchRepositories(created, limit, language)
+    const items = await fetchRepositories(created, limit, language);
+
+    const repositories = items.map((x: RespositorySearchItem) => ({
+      id: x.id,
+      name: x.name,
+      fullName: x.fullName,
+      starGazersCount: x.stargazersCount,
+      watchersCount: x.watchersCount,
+      language: x.language
+    }));
+
     return repositories;
   } catch (error) {
     throw new Error(`Error fetching repositories: ${error}`);
