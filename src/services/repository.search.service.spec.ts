@@ -21,7 +21,7 @@ describe('Repository Search Service', () => {
 
   it('should build search query based on parameters given', async () => {
     const created = '2020-01-01',
-      limit = 30,
+      limit = '30',
       language = 'javascript';
 
     const stub = sinon.stub(axios, 'get').resolves({ data: [] });

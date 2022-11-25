@@ -55,6 +55,6 @@ export async function fetchRepositories(
 
     return items;
   } catch (error: any) {
-    throw new ApiError(error.response.status, error.response.data.message);
+    throw new ApiError('Api Error', error.response.status, error.response.data.message);
   }
 }
