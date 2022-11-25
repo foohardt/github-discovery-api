@@ -41,6 +41,8 @@ const isNotNegative: CustomValidator = (value) => {
  *         description: Succesful operation
  *       400:
  *         description: Invalid status value
+ *       404:
+ *         description: Ressource not found
  *       500:
  *         description: Internal server error
  */

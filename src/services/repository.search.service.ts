@@ -1,5 +1,6 @@
 import { fetchRepositories } from '../api/api.service';
 import { RespositorySearchItem } from '../api/interfaces/repository.search.item';
+import { ApiError } from '../api/api.error';
 
 interface RepositoryItem {
   id: number;
@@ -37,7 +38,7 @@ async function getRepositories(
 
     return repositories;
   } catch (error) {
-    throw new Error(`Error getting repositories: ${error}`);
+    throw error;
   }
 }
 

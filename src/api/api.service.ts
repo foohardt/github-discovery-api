@@ -1,5 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import { response } from 'express';
 import { RespositorySearchItem } from '../api/interfaces/repository.search.item';
+import { ApiError } from './api.error';
 
 /**
  * Function to get axios request config for GitHub Search API
@@ -29,7 +31,7 @@ function getRepositorySearchUrl(
 ): string {
   const lang = language.length > 0 ? `+language:${language}` : '';
   const q = `q=created:>${created}${lang}&sort=stars&order=desc&per_page=${limit}`;
-  const url = `/repositories?${q}`;
+  const url = `/repositoriees?${q}`;
   return url;
 }
 
@@ -48,14 +50,11 @@ export async function fetchRepositories(
 ): Promise<RespositorySearchItem[]> {
   try {
     const url = getRepositorySearchUrl(created, limit, language);
-
     const response = await axios.get(url, getRequestConfig());
-
     const items = response.data.items;
 
     return items;
-  } catch (error) {
-    console.error(error);
-    throw new Error();
+  } catch (error: any) {
+    throw new ApiError(error.response.status, error.response.data.message);
   }
 }

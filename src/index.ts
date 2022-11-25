@@ -1,8 +1,9 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express, NextFunction, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
+import { ApiError } from './api/api.error';
 
 import repositoryRouter from './routes/repository.router';
 
@@ -39,6 +40,25 @@ const openapiSpecification = swaggerJsdoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification));
 
 app.use('/repositories', repositoryRouter);
+
+app.use((error: any, res: Response) => {
+  console.error('----- An error happened -----');
+  console.error(error);
+
+  // Only send if error ocurred before sending response
+  if (!res.headersSent) {
+    res.status(error.status || 500);
+
+    // A limited amount of information sent in production
+    if (process.env.NODE_ENV === 'production') {
+      res.json(error);
+    } else {
+      res.json(
+        JSON.parse(JSON.stringify(error, Object.getOwnPropertyNames(error)))
+      );
+    }
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
